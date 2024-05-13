@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="page">
+        <form method="post" class="formLogin" action="{% url 'cadastrar_usuario' %}">
+            {% csrf_token %}
+            <h1>Cadastro</h1>
+            <p>Digite os seus dados de acesso no campo abaixo.</p>
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Digite seu nome" autofocus="true" />  
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu e-mail" />
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" />
+
+            <label for="confirmar_senha">Confirme a Senha</label>
+            <input type="password" id="confirmar_senha" name="confirmar_senha" placeholder="Confirme sua senha" />
+            
+            <input type="submit" value="Cadastrar" class="btn" />
+        </form>
+
+        <!-- Exibir mensagens -->
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <!-- Fim da exibição de mensagens -->
+    </div>
+</body>
+</html>
