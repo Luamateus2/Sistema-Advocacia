@@ -15,10 +15,9 @@
             <p>Digite os seus dados de acesso no campo abaixo.</p>
             <label for="email">E-mail</label>
             <input type="email" placeholder="Digite seu e-mail" autofocus="true" />
-
             <label for="password">Senha</label>
             <input type="password" placeholder="password" />
-            <a href="tasks/cadastro.html">cadastrar</a>
+            <a href='{% url "cadastro_usuario" %}'>cadastrar</a>
             <input type="submit" value="Acessar" class="btn" />
         </form>
     </div>

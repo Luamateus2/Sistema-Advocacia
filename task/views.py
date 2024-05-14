@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from .models import Usuario
-
-
+from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate
 
 def login(request):
     return render(request,'tasks/index.html')
@@ -20,31 +20,28 @@ def tarefas(request):
 def cliente(request):
     return render(request,'tasks/cliente.html')
 
-def cadastrar_usuario(request):
-     if request.method == 'POST':
-        # Se o formulário foi submetido, obtenha os dados do formulário
+def logar(request):
+   pass
+    
+def adicionar_usuario(request):
+    if request.method == 'POST':
         nome = request.POST.get('nome')
         email = request.POST.get('email')
-        senha = request.POST.get('senha')
+        password = request.POST.get('password')
         confirmar_senha = request.POST.get('confirmar_senha')
 
-        # Verifica se as senhas são iguais
-        if senha != confirmar_senha:
+        if password != confirmar_senha:
             messages.error(request, 'As senhas não coincidem.')
             return render(request, 'tasks/cadastro.html')
 
-        # Cria uma instância do modelo Usuario com os dados do formulário
-        novo_usuario = Usuario(nome=nome, email=email, senha=senha)
-
-        # Salva o novo usuário no banco de dados
-        novo_usuario.save()
-
-        # Adiciona uma mensagem de sucesso
-        messages.success(request, 'Usuário cadastrado com sucesso!')
-
-        # Redireciona para a página de login
-        # Substitua 'nome_da_view_do_login' pela sua view de login
-        return redirect('login')
-     else:
-        # Se o método da requisição não for POST, renderize o template do formulário
-        return render(request, 'seu_template_de_cadastro.html')
+        Usuario = get_user_model()
+        try:
+            novo_usuario = Usuario.objects.create_user(
+            email=email, nome=nome, password=password)
+            messages.success(request, 'Usuário cadastrado com sucesso!')
+            return redirect('login')
+        except Exception as e:
+            messages.error(request, f'Erro ao cadastrar usuário: ')
+            return render(request, 'tasks/cadastro.html')
+    else:
+       return render(request, 'tasks/cadastro.html')

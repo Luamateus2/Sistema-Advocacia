@@ -78,9 +78,12 @@ body {
 .formLogin a:hover {
     color: #f72585;
 }
-
+.campos_escondidos{
+    color:red;
+    visibility: collapse;
+}
 .btn {
-    background-color: #f72585;
+    background-color: #0690df88;
     color: #fff;
     font-size: 14px;
     font-weight: 600;
@@ -93,6 +96,6 @@ body {
 
 .btn:hover {
     transform: scale(1.05);
-    background-color: #ff0676;
+    background-color: #068EDF;
 
 }
