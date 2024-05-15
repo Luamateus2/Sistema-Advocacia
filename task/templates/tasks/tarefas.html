@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href ="{% static 'css/style1.css' %}">
+</head>
+<body>
+    
+{% block content %}
+<header>
+  <img src="{% static 'img/advogado.png' %}" alt="símbolo de Advogados"> </img>     
+  <h1 id="titulo-header">Mateus e Malta Advogados</h1>
+      <nav class="menu-item">
+          <ul class="nav-item">
+              <li class="item-header">
+                  <a href="#">Home</a>
+              </li>
+              <li class="item-header">
+                  <a href="tasks/cliente.html">Cadastro</a>
+              </li>
+              <li class="item-header">
+                 <a href="tasks/tarefas.html">Tarefas</a>
+              </li>
+              <li class="item-header">
+                  <a href="tasks/processos.html">Processos</a>
+              </li>
+              <!--
+              <li class="item-header">
+                <a href="#"><img src="{% static 'img/usuario.png' %}" alt="login"> </img>     </a>
+              </li>
+            -->
+          </ul> 
+      </nav>
+    
+</header>
+
+<main>
+    <h1>Tarefas</h1>
+    <label for="titulo">Título da Tarefa</label>
+    <input type="text" name="titulo" placeholder="Título da Tarefa" required autofocus="true" />
+
+    <label for="responsavel">Responsável</label>
+    <input type="text" name="responsavel" placeholder="" required autofocus="true" />
+
+    <label for="situacao">Situação</label>
+    <input type="text" name="situacao" placeholder="" required autofocus="true" />
+
+    <label for="database">Data Base</label>
+    <input type="date" name="database" placeholder="" required autofocus="true" />
+
+    <label for="datainicio">Data Inicio</label>
+    <input type="date" name="datainicio" placeholder="" required autofocus="true" />
+
+    <label for="datafatal">Data Fatal</label>
+    <input type="date" name="datafatal" placeholder="" required autofocus="true" />
+
+    <label for="name">Cliente</label>
+    <input type="text" name="cliente" placeholder="" required autofocus="true" />
+
+    <label for="name"></label>
+    <input type="text" name="descricaotarefa" placeholder="Descrição da Tarefa" required autofocus="true" />
+    
+    <button>+</button>
+    <input type="submit" value="Enviar" class="btn" />
+
+</main>
+
+<footer>
+    <div class="container">
+    <!--ul1-->
+  
+  
+        <p id="ultima-linha">feito por Luana Karoline e Rafaela Urtiga corporation 2024</p>
+    </nav>
+    </div>
+
+</footer>
+{% endblock %}
+        
+</div>
+<footer> </footer>
+</body>
+</html>

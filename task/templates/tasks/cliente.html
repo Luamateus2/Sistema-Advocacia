@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href ="{% static 'css/style1.css' %}">
+</head>
+<body>
+    
+{% block content %}
+<header>
+  <img src="{% static 'img/advogado.png' %}" alt="símbolo de Advogados">   
+  <h1 id="titulo-header">Mateus e Malta Advogados</h1>
+      <nav class="menu-item">
+          <ul class="nav-item">
+              <li class="item-header">
+                  <a href="#">Home</a>
+              </li>
+              <li class="item-header">
+                  <a href="tasks/cliente.html">Cadastro</a>
+              </li>
+              <li class="item-header">
+                 <a href="tasks/tarefas.html">Tarefas</a>
+              </li>
+              <li class="item-header">
+                  <a href="tasks/processos.html">Processos</a>
+              </li>
+              <!--
+              <li class="item-header">
+                <a href="#"><img src="{% static 'img/usuario.png' %}" alt="login"> </img>     </a>
+              </li>
+            -->
+          </ul> 
+      </nav>
+    
+</header>
+
+<main>
+    <h1>Dados do Cliente</h1>
+    <div class="linha-horizontal"></div>
+
+    <form method="POST" class="formLogin" >
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" placeholder="" required autofocus="true" />
+
+        <label for="cpf">CPF:</label>
+        <input type="text" name="CPF" placeholder="" required autofocus="true" />
+
+        <label for="rg">RG:</label>
+        <input type="text" name="rg" placeholder="" required autofocus="true" />
+
+        <label for="dt_nascimento">Data de Nascimento: </label>
+        <input type="date" name="dt_nascimento" placeholder="" required autofocus="true" />
+
+        <label for="sexo">Sexo:</label>
+        <input type="text" name="sexo" placeholder="" required autofocus="true" />
+
+        <label for="contato">Contato:</label>
+        <input type="text" name="contato" placeholder="" required autofocus="true" />
+
+        <label for="email">E-mail:</label>
+        <input type="email" name="email" placeholder="" required autofocus="true" />
+
+        <label for="genero">Genêro:</label>
+        <input type="text" name="genero" placeholder="" required autofocus="true" />
+
+        <label for="whatsapp">Whatsapp:</label>
+        <input type="email" name="whatsapp" placeholder="" required autofocus="true" />
+
+       
+        <h2>Endereço do Cliente</h2>
+        <div class="linha-horizontal"></div>
+        <label for="logradouro">Logradouro:</label>
+        <input type="text" name="logradouro" placeholder="" required autofocus="true" />
+
+        <label for="bairro">Bairro:</label>
+        <input type="bairro" name="bairro" placeholder="" required autofocus="true" />
+
+        <label for="numero">N:</label>
+        <input type="number" name="numero" placeholder="" required autofocus="true" />
+
+        <label for="cep">CEP:</label>
+        <input type="text" name="cep" placeholder="" required autofocus="true" />
+
+        <input type="submit" value="Enviar" class="btn" />
+    </form>
+</main>
+
+<footer>
+    <div class="container">
+    <!--ul1-->
+  
+  
+        <p id="ultima-linha">feito por Luana Karoline e Rafaela Urtiga corporation 2024</p>
+    </nav>
+    </div>
+
+</footer>
+{% endblock %}
+        
+</div>
+<footer> </footer>
+</body>
+</html>

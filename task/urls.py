@@ -11,6 +11,6 @@ urlpatterns = [
     path('processos',view=views.processo,name='processos'),
     path('tarefas',view=views.tarefas,name='tarefas'),
     path('cadastro/cliente', view=views.cliente, name='cadastro/cliente'),
- 
+    path('cadastar/cliente',view=views.cadastrar_cliente,name='cadastrar_cliente'),
 
 ]

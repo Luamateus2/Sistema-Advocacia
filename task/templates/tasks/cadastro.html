@@ -11,7 +11,7 @@
 <body>
    
     <div class="page">
-        <form method="post" class="formLogin" action="{% url 'adicionar_usuario' %}">
+        <form method="post" class="formLogin" action="{% url 'adicionar/usuario' %}">
             {% csrf_token %}
             <h1>Cadastro</h1>
             <p>Digite os seus dados de acesso no campo abaixo.</p>
@@ -33,15 +33,8 @@
             <input type="submit" value="Cadastrar" class="btn" />
         </form>
         
-        <!-- Exibir mensagens -->
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        <!-- Fim da exibição de mensagens -->
+       
+
     </div>
 </body>
 </html>

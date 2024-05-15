@@ -1,9 +1,10 @@
+from django.urls import reverse
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from .models import Usuario
 from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate
 
 def login(request):
     return render(request,'tasks/index.html')
@@ -18,11 +19,29 @@ def tarefas(request):
     return render(request,'tasks/tarefas.html')
 
 def cliente(request):
-    return render(request,'tasks/cliente.html')
+    return render(request, 'tasks/cliente.html')
+
+def cadastrar_cliente(request):
+    pass
 
 def logar(request):
-   pass
-    
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            # Certifique-se de usar a função login correta do Django
+            login(request, user)
+            print('autenticado')
+            # Certifique-se de que 'home' é o nome correto da URL para a página inicial
+            return redirect(reverse('home'))
+        else:
+            messages.error(request, "Email ou senha incorretos.")
+            return render(request, 'tasks/index.html')
+
+    return render(request, 'tasks/index.html')
+
 def adicionar_usuario(request):
     if request.method == 'POST':
         nome = request.POST.get('nome')
@@ -31,17 +50,15 @@ def adicionar_usuario(request):
         confirmar_senha = request.POST.get('confirmar_senha')
 
         if password != confirmar_senha:
-            messages.error(request, 'As senhas não coincidem.')
             return render(request, 'tasks/cadastro.html')
 
         Usuario = get_user_model()
         try:
             novo_usuario = Usuario.objects.create_user(
             email=email, nome=nome, password=password)
-            messages.success(request, 'Usuário cadastrado com sucesso!')
             return redirect('login')
         except Exception as e:
-            messages.error(request, f'Erro ao cadastrar usuário: ')
             return render(request, 'tasks/cadastro.html')
     else:
        return render(request, 'tasks/cadastro.html')
+
