@@ -1,7 +1,12 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
+from django.core.validators import validate_ipv4_address
+from django.core.validators import validate_email
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from django.core.validators import RegexValidator
+from django.utils import timezone
 
 class UsuarioManager(BaseUserManager):
     def create_user(self, email, nome, password=None):
@@ -47,3 +52,40 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.nome
 
+
+class Cliente(models.Model):
+    nome = models.CharField(max_length=50, blank=False,null=False)
+    cpf = models.CharField(max_length=14, unique=True, blank=False,null=False, db_index=True)  # Adicionando o db_index
+    rg = models.CharField(max_length=9, unique=True, blank=False,null=False)
+    data_nascimento = models.DateField()
+    contato = models.CharField(max_length=14, blank=False)
+    email = models.EmailField(max_length=100, unique=True, blank=False)
+    genero = models.CharField(max_length=50, blank=False)
+    whatsapp = models.CharField(max_length=50, blank=False)
+    cep = models.CharField(max_length=12, blank=False)
+    logradouro = models.CharField(max_length=50, blank=False)
+    numero_casa = models.IntegerField()
+    bairro = models.CharField(max_length=50, blank=False)
+    def __str__(self):
+        return self.nome 
+    def clean(self):
+        if not validate_email(self.email):
+            raise ValidationError(
+                {'email': 'O endereço de e-mail fornecido não é válido.'})
+
+      
+        if self.data_nascimento > timezone.now().date():
+            raise ValidationError(
+                {'data_nascimento': 'A data de nascimento não pode estar no futuro.'})
+
+        if self.genero not in ['masculino', 'feminino', 'outro']:
+            raise ValidationError({'genero': 'Gênero inválido.'})
+
+
+        if not RegexValidator(regex=r'^\d{8,14}$')(self.contato):
+            raise ValidationError({'contato': 'Número de telefone inválido.'})
+
+
+
+
+    

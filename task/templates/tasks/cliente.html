@@ -41,21 +41,20 @@
     <h1>Dados do Cliente</h1>
     <div class="linha-horizontal"></div>
 
-    <form method="POST" class="formLogin" >
+    <form method="post" class="formLogin" action="{% url 'cadastrar_cliente' %}">
+        {% csrf_token %}
+
         <label for="nome">Nome:</label>
         <input type="text" name="nome" placeholder="" required autofocus="true" />
 
         <label for="cpf">CPF:</label>
-        <input type="text" name="CPF" placeholder="" required autofocus="true" />
+        <input type="text" name="cpf" placeholder="" required autofocus="true" />
 
         <label for="rg">RG:</label>
         <input type="text" name="rg" placeholder="" required autofocus="true" />
 
-        <label for="dt_nascimento">Data de Nascimento: </label>
-        <input type="date" name="dt_nascimento" placeholder="" required autofocus="true" />
-
-        <label for="sexo">Sexo:</label>
-        <input type="text" name="sexo" placeholder="" required autofocus="true" />
+        <label for="data_nascimento">Data de Nascimento: </label>
+        <input type="date" name="data_nascimento" placeholder="" required autofocus="true" />
 
         <label for="contato">Contato:</label>
         <input type="text" name="contato" placeholder="" required autofocus="true" />
@@ -63,26 +62,29 @@
         <label for="email">E-mail:</label>
         <input type="email" name="email" placeholder="" required autofocus="true" />
 
-        <label for="genero">Genêro:</label>
+        <label for="genero">Gênero:</label>
         <input type="text" name="genero" placeholder="" required autofocus="true" />
-
+   
         <label for="whatsapp">Whatsapp:</label>
-        <input type="email" name="whatsapp" placeholder="" required autofocus="true" />
+        <input type="text" name="whatsapp" placeholder="" required autofocus="true" />
 
-       
         <h2>Endereço do Cliente</h2>
         <div class="linha-horizontal"></div>
+        
+        <label for="cep">CEP:</label>
+        <input type="text" name="cep" placeholder="" required autofocus="true" />
+
         <label for="logradouro">Logradouro:</label>
         <input type="text" name="logradouro" placeholder="" required autofocus="true" />
+    
+        <label for="numero">N:</label>
+        <input type="number" name="numero_casa" placeholder="" required autofocus="true" />
 
         <label for="bairro">Bairro:</label>
         <input type="bairro" name="bairro" placeholder="" required autofocus="true" />
 
-        <label for="numero">N:</label>
-        <input type="number" name="numero" placeholder="" required autofocus="true" />
+        
 
-        <label for="cep">CEP:</label>
-        <input type="text" name="cep" placeholder="" required autofocus="true" />
 
         <input type="submit" value="Enviar" class="btn" />
     </form>
