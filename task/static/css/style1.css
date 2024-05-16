@@ -58,16 +58,17 @@ header {
     color: var(--branco);
 }
 /*Main*/
-
+article{
+    padding-left: 40px;
+    padding-right: 40px;
+}
 .linha-horizontal {
     width: 100%;
     /* Largura da linha */
-    border-top: 4px solid #23238E;
-    /* Adiciona borda superior na div com a cor desejada */
-    box-shadow: 0 4px 6px rgba(35, 35, 142, 0.3);
+    border-top: 4px solid #23238E;    
     padding-top: 20px;
-    /* Adiciona sombra com a cor desejada */
 }
+
 /*FOOTER*/
 
 footer {

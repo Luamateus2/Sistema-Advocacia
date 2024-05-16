@@ -1,82 +1,57 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href ="{% static 'css/style1.css' %}">
-</head>
-<body>
-    
+{% extends 'base.html' %}
+
+{% block title %}Processos{% endblock %}
 {% block content %}
-<header>
-  <img src="{% static 'img/advogado.png' %}" alt="símbolo de Advogados"> </img>     
-  <h1 id="titulo-header">Mateus e Malta Advogados</h1>
-      <nav class="menu-item">
-          <ul class="nav-item">
-              <li class="item-header">
-                  <a href="#">Home</a>
-              </li>
-              <li class="item-header">
-                  <a href="tasks/cliente.html">Cadastro</a>
-              </li>
-              <li class="item-header">
-                 <a href="tasks/tarefas.html">Tarefas</a>
-              </li>
-              <li class="item-header">
-                  <a href="tasks/processos.html">Processos</a>
-              </li>
-              <!--
-              <li class="item-header">
-                <a href="#"><img src="{% static 'img/usuario.png' %}" alt="login"> </img>     </a>
-              </li>
-            -->
-          </ul> 
-      </nav>
-    
-</header>
+
 
 <main>
-    <h1>Processos</h1>
-    <label for="titulo">Número do Processo</label>
-    <input type="text" name="numeroprocesso" placeholder="" required autofocus="true" />
+    <article>
+        <h1>Processos</h1>
+        <div class="linha-horizontal"></div>
+        <form method="post" class="formProcesso">
+        {% csrf_token %}
 
-    <label for="autor">Autor</label>
-    <input type="text" name="autor" placeholder="" required autofocus="true" />
-
-    <label for="reu">Réu</label>
-    <input type="text" name="reu" placeholder="" required autofocus="true" />
-
-    <label for="instancia">Instância</label>
-    <input type="text" name="instancia" placeholder="" required autofocus="true" />
-
-    <label for="forum">Fórum</label>
-    <input type="text" name="forum" placeholder="" required autofocus="true" />
-
-    <label for="valordacausa">Valor da Causa</label>
-    <input type="text" name="valordacausa" placeholder="" required autofocus="true" />
-
-    <label for="assunto">Assunto</label>
-    <input type="text" name="assunto" placeholder="" required autofocus="true" />
-    <input type="submit" value="Enviar" class="btn" />
-    <h2>Andamentos Processuais</h2>   
-  
-</main>
-
-<footer>
-    <div class="container">
-    <!--ul1-->
-  
-  
-        <p id="ultima-linha">feito por Luana Karoline e Rafaela Urtiga corporation 2024</p>
-    </nav>
-    </div>
-
-</footer>
-{% endblock %}
         
-</div>
-<footer> </footer>
-</body>
-</html>
+            <div class="row">
+                <div class="col">
+                    <label for="titulo">Número do Processo:</label>
+                    <input type="text"  class="form-control" name="numeroprocesso" />
+                </div>
+                <div class="col">
+                    <label for="autor">Autor:</label>
+                    <input type="text" class="form-control" name="autor" />
+                </div>
+                <div class="col">
+                    <label for="reu">Réu</label>
+                    <input type="text" class="form-control" name="reu"/>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col">
+                <label for="instancia">Instância</label>
+                <input type="text" class="form-control" name="instancia"  />
+                </div>
+                <div class="col">
+
+                <label for="forum">Fórum</label>
+                <input type="text" class="form-control" name="forum"/>
+                </div>
+                <div class="col">
+
+                <label for="valordacausa">Valor da Causa</label>
+                <input type="text" class="form-control" name="valordacausa" />
+                </div>
+            </div>
+        <div class="form-group">
+            <label for="assunto">Assunto</label>
+                <input type="text" class="form-control" name="assunto" />
+        </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+
+        <h1>Andamentos Processuais</h1>
+        <div class="linha-horizontal"></div>
+  </article>
+</main>
+{% endblock %}
