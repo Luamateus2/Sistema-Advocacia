@@ -8,7 +8,7 @@
     <h1>Dados do Cliente</h1>
     <div class="linha-horizontal"></div>
 
-    <form method="post" class="formLogin" action="{% url 'cadastrar_cliente' %}">
+    <form method="post" class="formLogin" action="{% url 'adicionar_cliente' %}">
         {% csrf_token %} 
         <div class="row">
              <div class="col">
@@ -77,7 +77,27 @@
 
                 </div>  
         </div>
-       
+         <h2>CTPS</h2>
+        <div class="linha-horizontal"></div>
+           <div class="row">
+                <div class="col">
+                    <label for="pip/pasep">PIS/PASEP:</label>
+                    <input type="text" name="pis/pasep"  class="form-control" />
+                </div>
+            
+                <div class="col">
+                    <label for="serie">Série:</label>
+                    <input type="text" name="serie"  class="form-control" />
+                </div>
+                 <div class="col">
+                    <label for="numero">N:</label>
+                    <input type="text" name="numero"  class="form-control" />
+                </div>
+                <div class="col">
+                    <label for="uf">UF:</label>
+                    <input type="text" name="uf"  class="form-control" />
+                </div>
+            </div>    
 
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>

@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="page">
-        <form method="POST" class="formLogin" action="{% url 'logar' %}">
+        <form method="POST" class="formLogin" action="{% url 'autenticar_usuario' %}">
             {% csrf_token %}
             <h1>Login</h1>
             <p>Digite os seus dados de acesso no campo abaixo.</p>
@@ -22,7 +22,7 @@
             <label for="password">Senha</label>
             <input type="password" name="password" placeholder="Digite sua senha"/>
             
-            <a href='{% url "cadastro_usuario" %}'>Cadastrar</a>
+            <a href='{% url "cadastrar_usuario" %}'>Cadastrar</a>
             <input type="submit" value="Acessar" class="btn" />
         </form>
     </div>

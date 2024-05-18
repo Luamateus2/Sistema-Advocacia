@@ -1,17 +1,16 @@
-from .models import Cliente
 from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from .models import Usuario,Cliente
+from .models import Usuario,Cliente,Processo
 from django.contrib.auth import get_user_model
 
 def login(request):
     return render(request,'tasks/index.html')
 
 
-def logar(request):
+def autenticar_usuario(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -27,7 +26,7 @@ def logar(request):
 
     return render(request, 'tasks/index.html')
 
-def cadastro_usuario(request):
+def cadastrar_usuario(request):
     return render(request,'tasks/cadastro.html')
 
 
@@ -56,7 +55,7 @@ def cliente(request):
     return render(request, 'tasks/cliente.html')
 
 
-def cadastrar_cliente(request):
+def adicionar_cliente(request):
     if request.method == 'POST':
         print("Método POST recebido.")
         nome = request.POST.get('nome')
@@ -106,7 +105,34 @@ def cadastrar_cliente(request):
     else:
         print("Nem tentou")
         return render(request, 'tasks/cliente.html')
+    
+def adicionar_processo(request):
+    if request.method == 'POST':
+        numero_processo = request.POST.get('numero_processo')
+        autor = request.POST.get('autor')
+        reu = request.POST.get('reu')
+        instancia = request.POST.get('instancia')
+        forum = request.POST.get('forum')
+        valor_da_causa = request.POST.get('valor_da_causa')
+        assunto = request.POST.get('assunto')
+        cliente_cpf = request.POST.get('cliente')
 
+        cliente = Cliente.objects.get(cpf=cliente_cpf)
+
+        processo = Processo(
+            numero_processo=numero_processo,
+            autor=autor,
+            reu=reu,
+            instancia=instancia,
+            forum=forum,
+            valor_da_causa=valor_da_causa,
+            assunto=assunto,
+            cliente=cliente
+        )
+        processo.save()
+    
+    
+    
 def processo(request):
     return render(request, 'tasks/processos.html')
 

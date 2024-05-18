@@ -1,11 +1,8 @@
 from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
-from django.core.validators import validate_ipv4_address
 from django.core.validators import validate_email
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.core.validators import RegexValidator
 from django.utils import timezone
 
 class UsuarioManager(BaseUserManager):
@@ -58,14 +55,19 @@ class Cliente(models.Model):
     cpf = models.CharField(max_length=14, unique=True, blank=False,null=False, db_index=True)  # Adicionando o db_index
     rg = models.CharField(max_length=9, unique=True, blank=False,null=False)
     data_nascimento = models.DateField()
-    contato = models.CharField(max_length=14, blank=False)
-    email = models.EmailField(max_length=100, unique=True, blank=False)
-    genero = models.CharField(max_length=50, blank=False)
-    whatsapp = models.CharField(max_length=50, blank=False)
-    cep = models.CharField(max_length=12, blank=False)
-    logradouro = models.CharField(max_length=50, blank=False)
+    contato = models.CharField(max_length=14, blank=False,null=False)
+    email = models.EmailField(max_length=100, unique=True, blank=False,null=False)
+    genero = models.CharField(max_length=50, blank=False,  null=False)
+    whatsapp = models.CharField(max_length=50, blank=False, null=False)
+    cep = models.CharField(max_length=12, blank=False, null=False)
+    logradouro = models.CharField(max_length=50, blank=False, null=False)
     numero_casa = models.IntegerField()
-    bairro = models.CharField(max_length=50, blank=False)
+    bairro = models.CharField(max_length=50, blank=False, null=False)
+    pis = models.CharField(max_length=20,unique=True,blank=False,null=False)
+    serie = models.CharField(max_length=20,blank=False,null=False)
+    uf = models.CharField(max_length=2,blank=False,null=False)
+    numeracao_ctps = models.CharField(max_length=7,blank=False,null=False)
+    
     def __str__(self):
         return self.nome 
     def clean(self):
@@ -78,14 +80,20 @@ class Cliente(models.Model):
             raise ValidationError(
                 {'data_nascimento': 'A data de nascimento não pode estar no futuro.'})
 
-        if self.genero not in ['masculino', 'feminino', 'outro']:
-            raise ValidationError({'genero': 'Gênero inválido.'})
-
-
-        if not RegexValidator(regex=r'^\d{8,14}$')(self.contato):
-            raise ValidationError({'contato': 'Número de telefone inválido.'})
-
-
 
 
     
+
+class Processo(models.Model):
+    numero_processo = models.CharField(max_length=100,unique=True, blank=False, null=False)
+    autor= models.CharField(max_length=100,blank=False,null=False)
+    reu = models.CharField(max_length=100, blank=False, null=False)
+    instancia = models.CharField(max_length=100, blank=False, null=False)
+    forum = models.CharField(max_length=100, blank=False, null=False)
+    valor_da_causa = models.DecimalField(max_digits=10, decimal_places=2, blank=False, null=False)
+    assunto = models.CharField(max_length=500, blank=False, null=False)
+    clientes = models.ManyToManyField(Cliente, related_name='processos')
+    cliente = models.ForeignKey(Cliente, to_field='cpf', on_delete=models.CASCADE, db_column='cpf_cliente')
+
+    def __str__(self):
+        return self.numero_processo

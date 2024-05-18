@@ -68,7 +68,9 @@ article{
     border-top: 4px solid #23238E;    
     padding-top: 20px;
 }
-
+main{
+    padding-bottom: 10px;
+}
 /*FOOTER*/
 
 footer {

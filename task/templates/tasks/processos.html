@@ -8,7 +8,7 @@
     <article>
         <h1>Processos</h1>
         <div class="linha-horizontal"></div>
-        <form method="post" class="formProcesso">
+        <form method="post" class="formProcesso" action="{% url 'adicionar_processo' %}">
         {% csrf_token %}
 
         
@@ -43,12 +43,20 @@
                 <input type="text" class="form-control" name="valordacausa" />
                 </div>
             </div>
-        <div class="form-group">
-            <label for="assunto">Assunto</label>
-                <input type="text" class="form-control" name="assunto" />
-        </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
+
+            <div class="row">
+                    <div class="col">
+                        <label for="assunto">Assunto</label>
+                        <input type="text" class="form-control" name="assunto"  />
+                    </div>
+                    <div class="col">
+
+                        <label for="cliente-cpf">Cliente(CPF):</label>
+                        <input type="text" class="form-control" name="cpf"/>
+                    </div>
+             </div>
+               
+
 
         <h1>Andamentos Processuais</h1>
         <div class="linha-horizontal"></div>
