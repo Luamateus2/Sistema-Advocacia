@@ -6,9 +6,7 @@ from django.contrib import messages
 from .models import Usuario,Cliente,Processo
 from django.contrib.auth import get_user_model
 
-def login(request):
-    return render(request,'tasks/index.html')
-
+# APAGAR DEF LOGIN
 
 def autenticar_usuario(request):
     if request.method == 'POST':
@@ -19,7 +17,7 @@ def autenticar_usuario(request):
         if user is not None:
             login(request, user)
             print('autenticado')
-            return redirect(reverse('home'))
+            return redirect(reverse('processos')) # MUDEI COLOCAR HOME
         else:
             messages.error(request, "Email ou senha incorretos.")
             return render(request, 'tasks/index.html')
@@ -138,4 +136,6 @@ def processo(request):
 
 
 def tarefas(request):
+    return render(request, 'tasks/tarefas.html')
+
     return render(request, 'tasks/tarefas.html')
