@@ -37,7 +37,13 @@
               </li>
             -->
           </ul> 
-      </nav>
+        </nav>
+        <div class="ml-auto text-white">
+            <!-- QUEM ESTA AUTH -->
+          {% if user.is_authenticated %}
+              <p>Bem vindo {{user.email}}</p>
+          {% endif %}
+        </div>
     
 </header>
 {% block content %}
