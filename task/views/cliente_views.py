@@ -1,15 +1,10 @@
-from django.shortcuts import render,redirect
-from django.urls import reverse
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from ..models import Usuario,Cliente,Processo
-from django.contrib.auth import get_user_model
+from ..models import Cliente
 
 
 def adicionar_cliente(request):
     if request.method == 'POST':
-        print("Método POST recebido.")
         nome = request.POST.get('nome')
         cpf = request.POST.get('cpf')
         rg = request.POST.get('rg')
@@ -23,11 +18,15 @@ def adicionar_cliente(request):
         numero_casa = request.POST.get('numero_casa')
         bairro = request.POST.get('bairro')
 
-        # Verificação e conversão do campo numero_casa
         try:
             numero_casa = int(numero_casa)
         except (ValueError, TypeError):
-            print("Número da casa inválido.")
+            messages.error(request, "Número da casa inválido.")
+            return render(request, 'tasks/processos.html')
+
+        if not nome or not rg or not cpf or not contato or not genero or not data_nascimento or not cep or not logradouro or not bairro:
+            messages.error(
+                request, "Todos os campos obrigatórios devem ser preenchidos.")
             return render(request, 'tasks/processos.html')
 
         try:
@@ -46,14 +45,12 @@ def adicionar_cliente(request):
                 bairro=bairro
             )
             novo_cliente.save()
-            print("Deu certo")
-            # Substitua 'success_page' pelo nome correto da URL de sucesso
-            return redirect('logar')
-
+            messages.success(request, "Cliente adicionado com sucesso!")
+            return redirect('adicionar_cliente')
         except Exception as e:
-            print("Algo deu errado:", e)
+            messages.error(
+                request, f"Ocorreu um erro ao adicionar o cliente: {e}")
             return render(request, 'tasks/cliente.html')
 
-    else:
-        print("Nem tentou")
-        return render(request, 'tasks/cliente.html')
+    clientes = Cliente.objects.all()
+    return render(request, 'tasks/cliente.html', {'clientes': clientes})

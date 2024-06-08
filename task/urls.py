@@ -1,17 +1,17 @@
 from django.urls import path
-from .views import login_views, processo_views, tarefas_views,cliente_views
+from .views import login_views, processo_views, tarefas_views,cliente_views,cadastar_views,editarcliente_views,excluircliente_views
 
 urlpatterns = [
-    # MUDOU AQUI
     path('',view = login_views.autenticar_usuario,name='autenticar_usuario'),
-    # path('autenticar/login',view=views.autenticar_usuario,name='autenticar_usuario'),
     
-    path('adicionar/usuario',login_views.adicionar_usuario, name='adicionar_usuario'),
+    path('adicionar/usuario',cadastar_views.adicionar_usuario, name='adicionar_usuario'),
     
     path('adicionar/cliente',view=cliente_views.adicionar_cliente,name='adicionar_cliente'),
-   
-    path('adicionar/processo',view=processo_views.adicionar_processo,name='adicionar_processo'),    
-    path('tarefas',view=tarefas_views.tarefas,name='tarefas'),
+    path('editar_cliente/<int:cliente_id>/',view=editarcliente_views.editar_cliente, name='editar_cliente'),
+    path('excluir/cliente/<int:cliente_id>/',view=excluircliente_views.excluir_cliente, name='excluir_cliente'),
+
+    path('adicionar/processo', view=processo_views.adicionar_processo,name='adicionar_processo'),
+    path('tarefas',view=tarefas_views.tarefa,name='tarefa'),
     
 
 ]

@@ -14,16 +14,23 @@
             {% csrf_token %}
             <h1>Login</h1>
             <p>Digite os seus dados de acesso no campo abaixo.</p>
-        
-            
-            <label for="email">E-mail</label>
+            <label for="email">E-mail*</label>
             <input type="email" name="email" placeholder="Digite seu e-mail" required autofocus="true" />
             
-            <label for="password">Senha</label>
+            <label for="password">Senha*</label>
             <input type="password" name="password" placeholder="Digite sua senha"/>
             
             <a href='{% url "adicionar_usuario" %}'>Cadastrar</a>
             <input type="submit" value="Acessar" class="btn" />
+                <p>*Campos Obrigatórios </p>
+
+               {% if messages %}
+                    <div id="messages">
+                        {% for message in messages %}
+                            <div class="alert {{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+               {% endif %}
         </form>
     </div>
 </body>

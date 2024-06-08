@@ -38,8 +38,11 @@ body {
     font-weight: 500;
     font-size: 2.3em;
 }
-
-.formLogin p {
+#messages{
+    font-size: 10px;
+    color : #666;
+}
+.formLogin p{
     display: inline-block;
     font-size: 14px;
     color: #666;

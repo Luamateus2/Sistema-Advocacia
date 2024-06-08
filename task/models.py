@@ -56,17 +56,17 @@ class Cliente(models.Model):
     rg = models.CharField(max_length=9, unique=True, blank=False,null=False)
     data_nascimento = models.DateField()
     contato = models.CharField(max_length=14, blank=False,null=False)
-    email = models.EmailField(max_length=100, unique=True, blank=False,null=False)
+    email = models.EmailField(max_length=100, unique=True)
     genero = models.CharField(max_length=50, blank=False,  null=False)
-    whatsapp = models.CharField(max_length=50, blank=False, null=False)
+    whatsapp = models.CharField(max_length=50)
     cep = models.CharField(max_length=12, blank=False, null=False)
     logradouro = models.CharField(max_length=50, blank=False, null=False)
     numero_casa = models.IntegerField()
     bairro = models.CharField(max_length=50, blank=False, null=False)
-    pis = models.CharField(max_length=20,unique=True,blank=False,null=False)
-    serie = models.CharField(max_length=20,blank=False,null=False)
+    pis = models.CharField(max_length=20,unique=True)
+    serie = models.CharField(max_length=20)
     uf = models.CharField(max_length=2,blank=False,null=False)
-    numeracao_ctps = models.CharField(max_length=7,blank=False,null=False)
+    numeracao_ctps = models.CharField(max_length=10)
     
     def __str__(self):
         return self.nome 
@@ -81,23 +81,21 @@ class Cliente(models.Model):
                 {'data_nascimento': 'A data de nascimento não pode estar no futuro.'})
 
 
-
-    
-
 class Processo(models.Model):
-    numero_processo = models.CharField(max_length=100,unique=True, blank=False, null=False)
-    autor= models.CharField(max_length=100,blank=False,null=False)
+    numero_processo = models.CharField(
+        max_length=100, unique=True, blank=False, null=False)
+    autor = models.ForeignKey(Cliente, on_delete=models.CASCADE, to_field='cpf', db_column='cpf_autor')
     reu = models.CharField(max_length=100, blank=False, null=False)
     instancia = models.CharField(max_length=100, blank=False, null=False)
     forum = models.CharField(max_length=100, blank=False, null=False)
-    valor_da_causa = models.DecimalField(max_digits=10, decimal_places=2, blank=False, null=False)
+    valor_da_causa = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=False, null=False)
     assunto = models.CharField(max_length=500, blank=False, null=False)
     clientes = models.ManyToManyField(Cliente, related_name='processos')
-    cliente = models.ForeignKey(Cliente, to_field='cpf', on_delete=models.CASCADE, db_column='cpf_cliente')
 
     def __str__(self):
         return self.numero_processo
-    
+
     
 class Tarefa(models.Model):
      titulo_tarefa = models.CharField(max_length=100,unique=True, blank=False, null=False)
@@ -108,7 +106,6 @@ class Tarefa(models.Model):
      responsavel = models.CharField(max_length=100,unique=True, blank=False, null=False)
      processo = models.ForeignKey(Processo, on_delete=models.CASCADE)
      cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-     processos = models.ManyToManyField(Processo, related_name='tarefas')
      def __str__(self):
         return self.titulo_tarefa
     

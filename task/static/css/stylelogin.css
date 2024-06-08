@@ -1,10 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+:root {
+    --cor-primaria: #0D5078;
+    --cor-secundaria: #0690df;
+    --cor-destaque: rgba(6, 144, 223, 0.733);
+    --cor-texto: #023047;
+    --cor-texto-secundaria: #666;
+    --cor-botao: #0f71aae5;
+    --cor-botao-hover: rgba(6, 144, 223, 0.733)e5;
+}
 
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    color: #023047
+    color: var(--cor-texto);
 }
 
 .page {
@@ -15,7 +23,7 @@ body {
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: #0D5078;
+    background-color: var(--cor-primaria);
 }
 
 .formLogin {
@@ -26,11 +34,7 @@ body {
     padding: 40px;
     box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
     width: 40%;
-    gap: 5px
-}
-
-.areaLogin img {
-    width: 420px;
+    gap: 5px;
 }
 
 .formLogin h1 {
@@ -43,7 +47,7 @@ body {
 .formLogin p {
     display: inline-block;
     font-size: 14px;
-    color: #666;
+    color: var(--cor-texto-secundaria);
     margin-bottom: 25px;
 }
 
@@ -58,37 +62,17 @@ body {
     outline: none;
 }
 
-
 .formLogin input:focus {
-    border: 1px solid#0690df88; 
+    border: 1px solid var(--cor-secundaria);
 }
 
 .formLogin label {
     font-size: 14px;
     font-weight: 600;
 }
-#messages {
-    font-size: 10px;
-    color: #666;
-}
-.formLogin a {
-    display: inline-block;
-    margin-bottom: 20px;
-    font-size: 13px;
-    color: #555;
-    transition: all linear 160ms;
-}
 
-.formLogin a:hover {
-    color: #0568a1;
-}
-.campos_escondidos{
-    color:red;
-    display: none;
-    opacity: 0;
-}
 .btn {
-    background-color: #0f71aae5;
+    background-color: var(--cor-botao);
     color: #fff;
     font-size: 14px;
     font-weight: 600;
@@ -96,11 +80,9 @@ body {
     transition: all linear 160ms;
     cursor: pointer;
     margin: 0 !important;
-
 }
 
 .btn:hover {
     transform: scale(1.05);
-    background-color: rgba(6, 144, 223, 0.733)e5;
-
+    background-color: var(--cor-botao-hover);
 }

@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 
 
 
-def tarefas(request):
+def tarefa(request):
     if request.method == 'POST':
             titulo_tarefa = request.POST.get('titulo_tarefa')
             data_base = request.POST.get('data_base')

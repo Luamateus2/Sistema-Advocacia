@@ -18,18 +18,23 @@
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="nome" placeholder="Digite seu nome" autofocus="true" />  
 
-            <label for="email">E-mail</label>
+            <label for="email">E-mail*</label>
             <input type="email" id="email" name="email" placeholder="Digite seu e-mail" />
-            <p class= "campos_escondidos" id="email_existente">*e-mail já existe </p>
 
-            <label for="senha">Senha</label>
+            <label for="senha">Senha*</label>
             <input type="password" id="password" name="password" placeholder="Digite sua senha" />
 
-            <label for="confirmar_senha">Confirme a Senha</label>
+            <label for="confirmar_senha">Confirme a Senha*</label>
             <input type="password" id="confirmar_senha" name="confirmar_senha" placeholder="Confirme sua senha" />
-            <p class= "campos_escondidos" id="senha_errada">*Senhas não coincidem</p>
-            <p class="campos_escondidos" id="campo_nulo">*campo obrigatorio</p>
 
+            <p>*Campos Obrigatórios </p>
+               {% if messages %}
+                <div id="messages">
+                    {% for message in messages %}
+                        <div class="alert {{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <input type="submit" value="Cadastrar" class="btn" />
         </form>
         
