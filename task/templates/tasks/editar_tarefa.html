@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Cliente{% endblock %}
+{% block content %}
+
+<main>
+        <article>
+            
+            <h1>Editar Cliente</h1>
+            <div class="linha-horizontal"></div>
+
+            <form method="post" class="formLogin" action="{% url 'editar_cliente' cliente.id %}">
+                    {% csrf_token %} 
+                    <div class="row">
+                        <div class="col">
+                            <label for="nome">Titulo Tarefa*:</label>
+                            <input type="text" name="titulo" class="form-control" value="{{ tarefa.titulo }}" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label for="responsavel">Responsavel*:</label>
+                            <input type="text" name="responsavel" class="form-control" value="{{ tarefa.responsavel }}" />
+                        </div>
+                        <div class="col">
+                            <label for="situacao">Situação*:</label>
+                            <input type="text" name="situacao" class="form-control" value="{{ tarefa.situacao }}" />
+                        </div>
+                        <div class="col">
+                            <label for="data_nascimento">Data de Nascimento*:</label>
+                            <input type="date" name="data_nascimento" class="form-control" value="{{ cliente.data_nascimento }}" />
+                        </div>    
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label for="genero">Gênero*:</label>
+                            <input type="text" name="genero" class="form-control" value="{{ cliente.genero }}" />
+                        </div>    
+                        <div class="col">
+                            <label for="contato">Contato*:</label>
+                            <input type="text" name="contato" class="form-control" value="{{ cliente.contato }}" />
+                        </div>    
+                        <div class="col">
+                            <label for="whatsapp">Whatsapp:</label>
+                            <input type="text" class="form-control" name="whatsapp" value="{{ cliente.whatsapp }}" />
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="email">E-mail:</label>
+                            <input type="email" name="email" class="form-control" value="{{ cliente.email }}" />
+                        </div>  
+                    </div>
+                    <h2>Endereço do Cliente</h2>
+                    <div class="linha-horizontal"></div>
+                    <div class="row">
+                            <div class="col">
+                                <label for="cep">CEP*:</label>
+                                <input type="text" name="cep" class="form-control" value="{{ cliente.cep }}" />
+                            </div>  
+                            <div class="col">
+                                <label for="logradouro">Logradouro*:</label>
+                                <input type="text" name="logradouro" class="form-control" value="{{ cliente.logradouro }}" />
+                            </div>  
+                            <div class="col">
+                                <label for="numero">Número*:</label>
+                                <input type="number" name="numero_casa" class="form-control" value="{{ cliente.numero_casa }}" />
+                            </div>  
+                            <div class="col">
+                                <label for="bairro">Bairro*:</label>
+                                <input type="text" name="bairro" class="form-control" value="{{ cliente.bairro }}" />
+                            </div>  
+                    </div>
+                    <h2>CTPS</h2>
+                    <div class="linha-horizontal"></div>
+                    <div class="row">
+                            <div class="col">
+                                <label for="pis_pasep">PIS/PASEP:</label>
+                                <input type="text" name="pis_pasep" class="form-control" value="{{ cliente.pis_pasep }}" />
+                            </div>
+                        
+                            <div class="col">
+                                <label for="serie">Série:</label>
+                                <input type="text" name="serie" class="form-control" value="{{ cliente.serie }}" />
+                            </div>
+                            <div class="col">
+                                <label for="numero">Número:</label>
+                                <input type="text" name="numero" class="form-control" value="{{ cliente.numero }}" />
+                            </div>
+                            <div class="col">
+                                <label for="uf">UF*:</label>
+                                <input type="text" name="uf" class="form-control" value="{{ cliente.uf }}" />
+                            </div>
+                        </div>    
+                    <p>*Campo Obrigatório</p>  
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+    </article>  
+</main>
+
+{% endblock %}

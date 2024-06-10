@@ -4,9 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from ..models import Usuario
-from django.contrib.auth import get_user_model
 
-# APAGAR DEF LOGIN
 
 def autenticar_usuario(request):
     if request.method == 'POST':
@@ -19,7 +17,7 @@ def autenticar_usuario(request):
             print('autenticado')
             return redirect(reverse('adicionar_cliente'))
         else:
-            messages.error(request, "Email ou senha incorretos.")
+            messages.error(request, "Email ou senha incorreto.")
             return render(request, 'tasks/index.html')
 
     return render(request, 'tasks/index.html')

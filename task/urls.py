@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import login_views, processo_views, tarefas_views,cliente_views,cadastar_views,editarcliente_views,excluircliente_views
+from .views import login_views, processo_views, tarefa_views, cliente_views,cadastar_views
 
 urlpatterns = [
     path('',view = login_views.autenticar_usuario,name='autenticar_usuario'),
@@ -7,12 +7,17 @@ urlpatterns = [
     path('adicionar/usuario',cadastar_views.adicionar_usuario, name='adicionar_usuario'),
     
     path('adicionar/cliente',view=cliente_views.adicionar_cliente,name='adicionar_cliente'),
-    path('editar_cliente/<int:cliente_id>/',view=editarcliente_views.editar_cliente, name='editar_cliente'),
-    path('excluir/cliente/<int:cliente_id>/',view=excluircliente_views.excluir_cliente, name='excluir_cliente'),
+    path('editar_cliente/<int:cliente_id>/',view=cliente_views.editar_cliente, name='editar_cliente'),
+    path('excluir/cliente/<int:cliente_id>/',view=cliente_views.excluir_cliente, name='excluir_cliente'),
 
     path('adicionar/processo', view=processo_views.adicionar_processo,name='adicionar_processo'),
-    path('tarefas',view=tarefas_views.tarefa,name='tarefa'),
-    
+    path('editar_processo/<int:processo_id>/',view=processo_views.editar_processo, name='editar_processo'),
+    path('excluir_processo/<int:processo_id>/', view=processo_views.excluir_processo, name='excluir_processo'),
+
+    path('tarefa',view=tarefa_views.tarefa,name='tarefa'),
+    path('editar_tarefa/<int:tarefa_id>/', view=tarefa_views.editar_tarefa, name='editar_tarefa'),
+    path('excluir/tarefa/<int:tarefa_id>/',view=tarefa_views.excluir_tarefa, name='excluir_tarefa'),
+
 
 ]
 

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Processo{% endblock %}
+{% block content %}
+
+<main>
+    <article>
+        <h1>Editar Processo</h1>
+        <div class="linha-horizontal"></div>
+
+        <form method="post" class="formProcesso" action="{% url 'editar_processo' processo.id %}">
+            {% csrf_token %}
+            
+            <div class="row">
+                <div class="col">
+                    <label for="numero_processo">Número do Processo*:</label>
+                    <input type="text" name="numero_processo" class="form-control" value="{{ processo.numero_processo }}" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="autor">Autor*:</label>
+                    <input type="text" name="autor" class="form-control" value="{{ processo.autor }}" />
+                </div>
+                <div class="col">
+                    <label for="reu">Réu*:</label>
+                    <input type="text" name="reu" class="form-control" value="{{ processo.reu }}" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="instancia">Instância*:</label>
+                    <input type="text" name="instancia" class="form-control" value="{{ processo.instancia }}" />
+                </div>
+                <div class="col">
+                    <label for="forum">Fórum*:</label>
+                    <input type="text" name="forum" class="form-control" value="{{ processo.forum }}" />
+                </div>
+                <div class="col">
+                    <label for="valor_da_causa">Valor da Causa*:</label>
+                    <input type="text" name="valor_da_causa" class="form-control" value="{{ processo.valor_da_causa }}" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="assunto">Assunto*:</label>
+                    <input type="text" name="assunto" class="form-control" value="{{ processo.assunto }}" />
+                </div>
+                <div class="col">
+                    <label for="cliente">Cliente*:</label>
+                    <select class="form-control" name="cliente">
+                        {% for cliente in clientes %}
+                            <option value="{{ cliente.cpf }}" {% if cliente.cpf == processo.cliente.cpf %}selected{% endif %}>
+                                {{ cliente.nome }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <p>*Campo Obrigatório</p>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </article>
+</main>
+
+{% endblock %}
