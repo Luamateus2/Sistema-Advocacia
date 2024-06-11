@@ -1,62 +1,84 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Processos{% endblock %}
 {% block content %}
-
 
 <main>
     <article>
         <h1>Processos</h1>
         <div class="linha-horizontal"></div>
         <form method="post" class="formProcesso" action="{% url 'adicionar_processo' %}">
-        {% csrf_token %}
-
-        
+            {% csrf_token %}
+            
             <div class="row">
                 <div class="col">
-                    <label for="titulo">Número do Processo:</label>
-                    <input type="text"  class="form-control" name="numeroprocesso" />
+                    <label for="numero_processo">Número do Processo*:</label>
+                    <input type="text" class="form-control" name="numero_processo" />
                 </div>
                 <div class="col">
-                    <label for="autor">Autor:</label>
-                    <input type="text" class="form-control" name="autor" />
+                    <label for="campo_select">Autor*:</label>
+                    <select class="form-control" name="autor" id="campo_select">
+                        {% for cliente in clientes %}
+                            <option value="{{ cliente.cpf }}">{{ cliente.nome }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="col">
-                    <label for="reu">Réu</label>
+                    <label for="reu">Réu*:</label>
                     <input type="text" class="form-control" name="reu"/>
                 </div>
-                
             </div>
             <div class="row">
                 <div class="col">
-                <label for="instancia">Instância</label>
-                <input type="text" class="form-control" name="instancia"  />
+                    <label for="instancia">Instância</label>
+                    <input type="text" class="form-control" name="instancia"  />
                 </div>
                 <div class="col">
-
-                <label for="forum">Fórum</label>
-                <input type="text" class="form-control" name="forum"/>
+                    <label for="forum">Fórum*</label>
+                    <input type="text" class="form-control" name="forum"/>
                 </div>
                 <div class="col">
-
-                <label for="valordacausa">Valor da Causa</label>
-                <input type="text" class="form-control" name="valordacausa" />
+                    <label for="valor_da_causa">Valor da Causa*</label>
+                    <input type="text" class="form-control" name="valor_da_causa" />
                 </div>
             </div>
-
             <div class="row">
-                    <div class="col">
-                        <label for="assunto">Assunto</label>
-                        <input type="text" class="form-control" name="assunto"  />
-                    </div>
-                    <div class="col">
-                        <label for="campo_select">Cliente</label>
-                        <select class="form-control" name="campo_select" id="campo_select">
-                        </select>
-                    </div>
-             </div>
-               
-
-  </article>
+                <div class="col">
+                    <label for="assunto">Assunto</label>
+                    <input type="text" class="form-control" name="assunto"  />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>   
+        </form>
+    </article>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>N Processo</th>
+                <th>Instancia</th>
+                <th>Fórum</th>
+                <th>Valor da Causa</th>
+                <th>Assunto</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for processo in processos %}
+            <tr>
+                <td>{{ processo.numero_processo }}</td>
+                <td>{{ processo.instancia }}</td>
+                <td>{{ processo.forum }}</td>
+                <td>{{ processo.valor_da_causa }}</td>
+                <td>{{ processo.assunto}}</td>
+                <td>
+                    <a href="{% url 'editar_processo' processo.id %}"> 
+                        <img src="{% static 'img/iconeeditar.png' %}" alt="símbolo de editar"></img> 
+                    </a>                      
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </main>
 {% endblock %}

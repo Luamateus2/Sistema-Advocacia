@@ -1,69 +1,98 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Editar Tarefa{% endblock %}
+{% block title %}Criar Tarefa{% endblock %}
 {% block content %}
 
 <main>
     <article>
-        <h1>Editar Tarefa</h1>
+        <h1>Criar Tarefa</h1>
         <div class="linha-horizontal"></div>
 
-        <form method="post" class="formTarefa" action="{% url 'editar_tarefa' tarefa.id %}">
+        <form method="post" class="formTarefa" action="{% url 'tarefa' %}">
             {% csrf_token %}
             
             <div class="row">
                 <div class="col">
                     <label for="titulo_tarefa">Título da Tarefa*:</label>
-                    <input type="text" name="titulo_tarefa" class="form-control" value="{{ tarefa.titulo_tarefa }}" />
+                    <input type="text" name="titulo_tarefa" class="form-control" />
                 </div>
             </div>
 
             <div class="row">
                 <div class="col">
                     <label for="data_base">Data Base*:</label>
-                    <input type="date" name="data_base" class="form-control" value="{{ tarefa.data_base }}" />
+                    <input type="date" name="data_base" class="form-control" />
                 </div>
                 <div class="col">
                     <label for="data_inicial">Data Inicial*:</label>
-                    <input type="date" name="data_inicial" class="form-control" value="{{ tarefa.data_inicial }}" />
+                    <input type="date" name="data_inicial" class="form-control" />
                 </div>
                 <div class="col">
                     <label for="data_fatal">Data Fatal*:</label>
-                    <input type="date" name="data_fatal" class="form-control" value="{{ tarefa.data_fatal }}" />
+                    <input type="date" name="data_fatal" class="form-control" />
                 </div>
             </div>
 
             <div class="row">
                 <div class="col">
                     <label for="situacao">Situação*:</label>
-                    <input type="text" name="situacao" class="form-control" value="{{ tarefa.situacao }}" />
+                    <input type="text" name="situacao" class="form-control" />
                 </div>
                 <div class="col">
                     <label for="responsavel">Responsável*:</label>
-                    <input type="text" name="responsavel" class="form-control" value="{{ tarefa.responsavel }}" />
+                    <input type="text" name="responsavel" class="form-control" />
                 </div>
                 <div class="col">
                     <label for="processo">Processo*:</label>
-                    <input type="text" name="processo" class="form-control" value="{{ tarefa.processo }}" />
+                    <input type="text" name="processo" class="form-control" />
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col">
-                    <label for="cliente">Cliente*:</label>
-                    <select class="form-control" name="cliente">
-                        {% for cliente in clientes %}
-                            <option value="{{ cliente.cpf }}" {% if cliente.cpf == tarefa.cliente.cpf %}selected{% endif %}>
-                                {{ cliente.nome }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
+
 
             <p>*Campo Obrigatório</p>
             <button type="submit" class="btn btn-primary">Salvar</button>
         </form>
+    </article>
+    <article>
+ <article>
+        <h1>Tarefas</h1>
+        <div class="linha-horizontal"></div>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Data Base</th>
+                    <th>Data Inicial</th>
+                    <th>Data Fatal</th>
+                    <th>Situação</th>
+                    <th>Responsável</th>
+                    
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for taref in tarefa %}
+                <tr>
+                    <td>{{ tarefa.titulo_tarefa }}</td>
+                    <td>{{ tarefa.data_base }}</td>
+                    <td>{{ tarefa.data_inicial }}</td>
+                    <td>{{ tarefa.data_fatal }}</td>
+                    <td>{{ tarefa.situacao }}</td>
+                    <td>{{ tarefa.responsavel }}</td>
+            
+                    <td>
+                        <a href="{% url 'excluir_tarefa' tarefa.id %}"> 
+                            <img src="{% static 'img/iconeeditar.png' %}" alt="símbolo de excluir"></img> 
+                        </a>                      
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
     </article>
 </main>
 

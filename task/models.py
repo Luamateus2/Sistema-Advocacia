@@ -88,10 +88,9 @@ class Processo(models.Model):
     reu = models.CharField(max_length=100, blank=False, null=False)
     instancia = models.CharField(max_length=100, blank=False, null=False)
     forum = models.CharField(max_length=100, blank=False, null=False)
-    valor_da_causa = models.DecimalField(
-        max_digits=10, decimal_places=2, blank=False, null=False)
+    valor_da_causa = models.CharField(
+        max_length=10, blank=False, null=False)
     assunto = models.CharField(max_length=500, blank=False, null=False)
-    clientes = models.ManyToManyField(Cliente, related_name='processos')
 
     def __str__(self):
         return self.numero_processo
@@ -105,13 +104,6 @@ class Tarefa(models.Model):
      situacao = models.CharField(max_length=100, blank=False, null=False)
      responsavel = models.CharField(max_length=100,unique=True, blank=False, null=False)
      processo = models.ForeignKey(Processo, on_delete=models.CASCADE)
-     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
      def __str__(self):
         return self.titulo_tarefa
     
-class Andamento(models.Model):
-    processo = models.ForeignKey(Processo, on_delete=models.CASCADE, related_name='andamentos')
-    descricao =models.CharField(max_length=500, blank=False, null=False)
-    status =  models.CharField(max_length=100, blank=False, null=False)
-    def __str(self):
-         return self.descricao

@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from ..models import Tarefa, Cliente
+from ..models import Tarefa
 
 
 def tarefa(request):
+
     if request.method == 'POST':
         titulo_tarefa = request.POST.get('titulo_tarefa')
         data_base = request.POST.get('data_base')
@@ -12,10 +13,11 @@ def tarefa(request):
         situacao = request.POST.get('situacao')
         responsavel = request.POST.get('responsavel')
         processo = request.POST.get('processo')
-        cliente_cpf = request.POST.get('cliente')
-
+        if not titulo_tarefa or not data_base or not data_fatal or not data_inicial or not situacao or not responsavel or not processo :
+            messages.error(
+                request, "Todos os campos obrigatórios devem ser preenchidos.")
+            return render(request, 'tasks/processo.html')
         try:
-            cliente = Cliente.objects.get(cpf=cliente_cpf)
             tarefa = Tarefa(
                 titulo_tarefa=titulo_tarefa,
                 data_base=data_base,
@@ -24,19 +26,19 @@ def tarefa(request):
                 situacao=situacao,
                 responsavel=responsavel,
                 processo=processo,
-                cliente=cliente
+              
             )
             tarefa.save()
             messages.success(request, 'Tarefa criada com sucesso!')
-        except Cliente.DoesNotExist:
-            messages.error(request, 'Cliente não encontrado.')
+     
         except Exception as e:
             messages.error(request, f'Algo deu errado: {e}')
         return redirect('tarefa')
-    else:
-        return render(request, 'tasks/tarefa.html')
 
 
+    return render(request, 'tasks/tarefa.html')
+
+    clientes = Cliente.objects.all()
 def editar_tarefa(request, tarefa_id):
     tarefa = get_object_or_404(Tarefa, id=tarefa_id)
     if request.method == 'POST':

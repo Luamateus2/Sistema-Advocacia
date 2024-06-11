@@ -5,19 +5,23 @@ from django.contrib import messages
 from ..models import Cliente, Processo
 
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from ..models import Cliente, Processo
+
+
 def adicionar_processo(request):
     if request.method == 'POST':
         numero_processo = request.POST.get('numero_processo')
-        autor = request.POST.get('autor')
+        autor_cpf = request.POST.get('autor')
         reu = request.POST.get('reu')
         instancia = request.POST.get('instancia')
         forum = request.POST.get('forum')
         valor_da_causa = request.POST.get('valor_da_causa')
         assunto = request.POST.get('assunto')
-        cliente_cpf = request.POST.get('cliente')
 
         try:
-            cliente = Cliente.objects.get(cpf=cliente_cpf)
+            autor = Cliente.objects.get(cpf=autor_cpf)
             processo = Processo(
                 numero_processo=numero_processo,
                 autor=autor,
@@ -25,41 +29,18 @@ def adicionar_processo(request):
                 instancia=instancia,
                 forum=forum,
                 valor_da_causa=valor_da_causa,
-                assunto=assunto,
-                cliente=cliente
+                assunto=assunto
             )
             processo.save()
             messages.success(request, 'Processo adicionado com sucesso!')
+            return render(request,'tasks/processo.html')
         except Cliente.DoesNotExist:
             messages.error(request, 'Cliente não encontrado.')
-        return render(request,'task/processo.html')
-    return render(request, 'tasks/processo.html')
+            return render(request, 'tasks/processo.html', {'clientes': Cliente.objects.all()})
 
+    clientes = Cliente.objects.all()
+    return render(request, 'tasks/processo.html', {'clientes': clientes})
 
-def editar_processo(request, processo_id):
-    processo = get_object_or_404(Processo, id=processo_id)
-    if request.method == 'POST':
-        processo.numero_processo = request.POST.get('numero_processo')
-        processo.autor = request.POST.get('autor')
-        processo.reu = request.POST.get('reu')
-        processo.instancia = request.POST.get('instancia')
-        processo.forum = request.POST.get('forum')
-        processo.valor_da_causa = request.POST.get('valor_da_causa')
-        processo.assunto = request.POST.get('assunto')
-        cliente_cpf = request.POST.get('cliente')
-
-        try:
-            processo.cliente = Cliente.objects.get(cpf=cliente_cpf)
-            processo.save()
-            messages.success(request, 'Processo atualizado com sucesso!')
-        except Cliente.DoesNotExist:
-            messages.error(request, 'Cliente não encontrado.')
-        except Exception as e:
-            messages.error(request, f'Algo deu errado: {e}')
-        return redirect('processos')
-
-    context = {'processo': processo}
-    return render(request, 'tasks/editar_processo.html', context)
 
 
 def excluir_processo(request, processo_id):
