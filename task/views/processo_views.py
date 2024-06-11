@@ -1,11 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.contrib import messages
-from ..models import Cliente, Processo
-
-
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from ..models import Cliente, Processo
 
@@ -19,7 +14,11 @@ def adicionar_processo(request):
         forum = request.POST.get('forum')
         valor_da_causa = request.POST.get('valor_da_causa')
         assunto = request.POST.get('assunto')
-
+        if Processo.objects.filter(numero_processo=numero_processo).exists():
+            messages.error(request, 'O número do processo já existe.')
+        if not numero_processo or not autor_cpf or not reu or instancia or forum or valor_da_causa or assunto :
+              messages.error(request, "Todos os campos obrigatórios devem ser preenchidos.")
+              return render(request, 'tasks/processo.html')
         try:
             autor = Cliente.objects.get(cpf=autor_cpf)
             processo = Processo(
@@ -38,17 +37,9 @@ def adicionar_processo(request):
             messages.error(request, 'Cliente não encontrado.')
             return render(request, 'tasks/processo.html', {'clientes': Cliente.objects.all()})
 
+
     clientes = Cliente.objects.all()
     return render(request, 'tasks/processo.html', {'clientes': clientes})
 
 
 
-def excluir_processo(request, processo_id):
-    processo = get_object_or_404(Processo, id=processo_id)
-    if request.method == 'POST':
-        processo.delete()
-        messages.success(request, 'Processo excluído com sucesso!')
-        return HttpResponseRedirect(reverse('processos'))
-
-    context = {'processo': processo}
-    return redirect(request, 'tasks/excluir_processo.html', context)

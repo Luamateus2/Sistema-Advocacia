@@ -20,10 +20,7 @@
             </div>
 
             <div class="row">
-                <div class="col">
-                    <label for="data_base">Data Base*:</label>
-                    <input type="date" name="data_base" class="form-control" />
-                </div>
+            
                 <div class="col">
                     <label for="data_inicial">Data Inicial*:</label>
                     <input type="date" name="data_inicial" class="form-control" />
@@ -43,10 +40,16 @@
                     <label for="responsavel">Responsável*:</label>
                     <input type="text" name="responsavel" class="form-control" />
                 </div>
-                <div class="col">
-                    <label for="processo">Processo*:</label>
-                    <input type="text" name="processo" class="form-control" />
+               <div class="col">
+                    <label for="campo_select">Processo*:</label>
+                    <select class="form-control" name="processo" id=”campo_select”>
+                        {% for processo in processos %}
+                            <option value="{{ processo.numero_processo }}">{{ processo.numero_processo }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
+
+            </div>
             </div>
 
 
@@ -54,44 +57,56 @@
             <p>*Campo Obrigatório</p>
             <button type="submit" class="btn btn-primary">Salvar</button>
         </form>
-    </article>
-    <article>
- <article>
-        <h1>Tarefas</h1>
-        <div class="linha-horizontal"></div>
-        
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Data Base</th>
-                    <th>Data Inicial</th>
-                    <th>Data Fatal</th>
-                    <th>Situação</th>
-                    <th>Responsável</th>
-                    
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for taref in tarefa %}
-                <tr>
-                    <td>{{ tarefa.titulo_tarefa }}</td>
-                    <td>{{ tarefa.data_base }}</td>
-                    <td>{{ tarefa.data_inicial }}</td>
-                    <td>{{ tarefa.data_fatal }}</td>
-                    <td>{{ tarefa.situacao }}</td>
-                    <td>{{ tarefa.responsavel }}</td>
-            
-                    <td>
-                        <a href="{% url 'excluir_tarefa' tarefa.id %}"> 
-                            <img src="{% static 'img/iconeeditar.png' %}" alt="símbolo de excluir"></img> 
-                        </a>                      
-                    </td>
-                </tr>
+
+               {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
                 {% endfor %}
-            </tbody>
-        </table>
+            </div>
+        {% endif %}
+    </article>
+    
+ <article>
+        <h2>Lista de Tarefas</h2>
+        <div class="linha-horizontal"></div>
+      <table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Data Base</th>
+            <th>Data Inicial</th>
+            <th>Data Fatal</th>
+            <th>Situação</th>
+            <th>Responsável</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tarefa in tarefas %}
+        <tr>
+            <td>{{ tarefa.titulo_tarefa }}</td>
+            <td>{{ tarefa.data_base }}</td>
+            <td>{{ tarefa.data_inicial }}</td>
+            <td>{{ tarefa.data_fatal }}</td>
+            <td>{{ tarefa.situacao }}</td>
+            <td>{{ tarefa.responsavel }}</td>
+            <td>
+                <a href="{% url 'editar_tarefa' tarefa.id %}">
+                    <img src="{% static 'img/iconeeditar.png' %}" alt="símbolo de excluir"></img>
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'excluir_tarefa' tarefa.id %}">
+                    <img src="{% static 'img/excluir.png' %}" alt="símbolo de excluir"></img>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
         
     </article>
 </main>

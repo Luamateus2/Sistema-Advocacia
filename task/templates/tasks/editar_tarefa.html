@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar Tarefa{% endblock %}
+{% block content %}
+
+<main>
+    <article>
+        <h1>Editar Tarefa</h1>
+        <div class="linha-horizontal"></div>
+
+        <form method="post" class="formTarefa" action="{% url 'editar_tarefa' tarefa.id %}">
+            {% csrf_token %}
+            
+            <div class="row">
+                <div class="col">
+                    <label for="titulo_tarefa">Título da Tarefa*:</label>
+                    <input type="text" name="titulo_tarefa" class="form-control" value="{{ tarefa.titulo_tarefa }}" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="data_inicial">Data Inicial*:</label>
+                    <input type="date" name="data_inicial" class="form-control" value="{{ tarefa.data_inicial }}" />
+                </div>
+                <div class="col">
+                    <label for="data_fatal">Data Fatal*:</label>
+                    <input type="date" name="data_fatal" class="form-control" value="{{ tarefa.data_fatal }}" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="situacao">Situação*:</label>
+                    <input type="text" name="situacao" class="form-control" value="{{ tarefa.situacao }}" />
+                </div>
+                <div class="col">
+                    <label for="responsavel">Responsável*:</label>
+                    <input type="text" name="responsavel" class="form-control" value="{{ tarefa.responsavel }}" />
+                </div>
+            </div>
+            <p>*Campo Obrigatório</p>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </article>
+</main>
+
+{% endblock %}

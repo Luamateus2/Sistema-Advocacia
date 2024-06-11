@@ -98,12 +98,12 @@ class Processo(models.Model):
     
 class Tarefa(models.Model):
      titulo_tarefa = models.CharField(max_length=100,unique=True, blank=False, null=False)
-     data_base = models.DateField()
+     data_base = models.DateField(auto_now_add=True)
      data_fatal = models.DateField()
-     data_final = models.DateField()
+     data_inicial = models.DateField()
      situacao = models.CharField(max_length=100, blank=False, null=False)
      responsavel = models.CharField(max_length=100,unique=True, blank=False, null=False)
-     processo = models.ForeignKey(Processo, on_delete=models.CASCADE)
+     processo = models.ForeignKey(Processo, on_delete=models.CASCADE,to_field='numero_processo',db_column='numero_p')
      def __str__(self):
         return self.titulo_tarefa
     

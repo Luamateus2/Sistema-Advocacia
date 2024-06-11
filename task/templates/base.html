@@ -17,29 +17,24 @@
 <header>
   <img src="{% static 'img/advogado.png' %}" alt="símbolo de Advogados">    
   <h1 id="titulo-header">Mateus e Malta Advogados</h1>
-      <nav class="menu-item">
-          <ul class="nav-item">
-              <li class="item-header">
-                  <a href="#">Home</a>
-              </li>
-              <li class="item-header">
-                  <a href="tasks/cliente.html">Cadastro</a>
-              </li>
-              <li class="item-header">
-                 <a href="tasks/tarefa.html">Tarefa</a>
-              </li>
-              <li class="item-header">
-                  <a href="tasks/processo.html">Processo</a>
-              </li>
-              <!--
-              <li class="item-header">
-                <a href="#"><img src="{% static 'img/usuario.png' %}" alt="login"> </img>     </a>
-              </li>
-            -->
-          </ul> 
+        <nav class="menu-item">
+            <ul class="nav-item">
+                <li class="item-header">
+                    <a href="#">Home</a>
+                </li>
+                <li class="item-header">
+                    <a href="{% url 'adicionar_cliente' %}">Cadastro</a>
+                </li>
+                <li class="item-header">
+                    <a href="{% url 'tarefa' %}">Tarefa</a>
+                </li>
+                <li class="item-header">
+                    <a href="{% url 'adicionar_processo' %}">Processo</a>
+                </li>
+            </ul> 
         </nav>
+
         <div class="ml-auto text-white">
-            <!-- QUEM ESTA AUTH -->
           {% if user.is_authenticated %}
               <p>Bem vindo {{user.email}}</p>
           {% endif %}
@@ -52,8 +47,7 @@
 {% endblock %}
 <footer>
     <div class="container">
-    <!--ul1-->
-  
+
   
         <p id="ultima-linha">feito por Luana Karoline e Rafaela Urtiga corporation 2024</p>
     </nav>

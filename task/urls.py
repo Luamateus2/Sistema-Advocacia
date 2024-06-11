@@ -11,9 +11,9 @@ urlpatterns = [
     path('excluir/cliente/<int:cliente_id>/',view=cliente_views.excluir_cliente, name='excluir_cliente'),
 
     path('adicionar/processo', view=processo_views.adicionar_processo,name='adicionar_processo'),
-    path('excluir_processo/<int:processo_id>/', view=processo_views.excluir_processo, name='excluir_processo'),
 
     path('tarefa',view=tarefa_views.tarefa,name='tarefa'),
+    path('editar_tarefa/<int:tarefa_id>/',  view=tarefa_views.editar_tarefa, name='editar_tarefa'),
     path('excluir/tarefa/<int:tarefa_id>/',view=tarefa_views.excluir_tarefa, name='excluir_tarefa'),
 
 

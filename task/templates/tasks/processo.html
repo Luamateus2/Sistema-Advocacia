@@ -8,6 +8,9 @@
     <article>
         <h1>Processos</h1>
         <div class="linha-horizontal"></div>
+        
+     
+
         <form method="post" class="formProcesso" action="{% url 'adicionar_processo' %}">
             {% csrf_token %}
             
@@ -51,34 +54,16 @@
             </div>
             <button type="submit" class="btn btn-primary">Salvar</button>   
         </form>
+           {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </article>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>N Processo</th>
-                <th>Instancia</th>
-                <th>Fórum</th>
-                <th>Valor da Causa</th>
-                <th>Assunto</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for processo in processos %}
-            <tr>
-                <td>{{ processo.numero_processo }}</td>
-                <td>{{ processo.instancia }}</td>
-                <td>{{ processo.forum }}</td>
-                <td>{{ processo.valor_da_causa }}</td>
-                <td>{{ processo.assunto}}</td>
-                <td>
-                    <a href="{% url 'editar_processo' processo.id %}"> 
-                        <img src="{% static 'img/iconeeditar.png' %}" alt="símbolo de editar"></img> 
-                    </a>                      
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 </main>
+
 {% endblock %}
