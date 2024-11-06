@@ -2,8 +2,9 @@
 
 Descrição
 
-Este projeto foi desenvolvido como parte da conclusão de uma disciplina da faculdade e tem como objetivo simular o funcionamento de um sistema de gestão de clientes e processos para um escritório de advocacia previdenciária. O sistema permite o cadastro de clientes, a simulação do cadastro de processos jurídicos relacionados à previdência, a listagem de clientes e a alteração de seus dados.
-Funcionalidades
+Este projeto foi desenvolvido como parte da conclusão de uma disciplina da faculdade de sistemas de Informação e tem como objetivo simular o funcionamento de um sistema de gestão de clientes e processos para um escritório de advocacia previdenciária. O sistema permite o cadastro de clientes, a simulação do cadastro de processos jurídicos relacionados à previdência, a listagem de clientes e a alteração de seus dados.
+
+Funcionalidades:
 
 O sistema oferece as seguintes funcionalidades:
 
@@ -20,3 +21,4 @@ Tecnologias Utilizadas
         SQLite (ambiente de desenvolvimento)
     Front-end:
         HTML5, CSS3 e Django
+Os acessos as pages do sistema são protegidos só as pages de cadastro e login tem acesso livres.
