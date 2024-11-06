@@ -7,9 +7,15 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;  /* Para evitar problemas de box-sizing */
 }
 
-/* HEADER */
+/* Garantir que o body e html ocupem 100% da altura */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
 header {
     display: flex;
@@ -29,7 +35,6 @@ header {
 
 .search-2 {
     background-color: rgba(255, 255, 255, 0);
-    ;
     border: none;
     padding-top: 2px;
     padding-left: 2px;
@@ -45,9 +50,11 @@ header {
     padding: 10px;
     text-decoration: none;
 }
-.menu-item a{
+
+.menu-item a {
     color: var(--branco);
 }
+
 .nav-item {
     display: flex;
     list-style: none;
@@ -57,26 +64,32 @@ header {
 #titulo-header {
     color: var(--branco);
 }
-/*Main*/
-article{
+
+/* Main Content */
+article {
     padding-left: 40px;
     padding-right: 40px;
+    flex: 1;  /* Garante que o conteúdo ocupe o espaço disponível */
 }
+
 .linha-horizontal {
     width: 100%;
-    /* Largura da linha */
-    border-top: 4px solid #23238E;    
+    border-top: 4px solid #23238E;
     padding-top: 20px;
 }
-main{
+
+main {
     padding-bottom: 10px;
 }
-/*FOOTER*/
 
+/* Footer */
 footer {
     background-color: var(--azul);
-    padding: 10px;
-}
+    padding-top: 10px;
+    color: var(--branco);
+    text-align: center;
+    margin-top : auto;
+}   
 
 .container {
     display: flex;
@@ -93,12 +106,7 @@ footer {
     justify-content: center;
     color: var(--branco);
 }
-/**
-.item-footer a:hover {
-    color: var(--laranja);
-}
-**/
+
 #ultima-linha {
     color: var(--branco);
-
 }

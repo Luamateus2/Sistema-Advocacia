@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from decouple import config
+ # Lê o arquivo .env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,13 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-088*yc9c*2066#wx_=keg#gx91%ij$rkp8motu)f!-7o+sp8u$'
+SECRET_KEY = config('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Para DEBUG, você pode fazer da seguinte forma
+DEBUG = config('DEBUG', default=True, cast=bool)# SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost', cast=lambda v: [s.strip() for s in v.split(',')])
 
 # Application definition
 
@@ -49,11 +51,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'task.middleware.LoginRequiredMiddleware',
 ]
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-ROOT_URLCONF = 'advocacia.urls'
 
 TEMPLATES = [
     {
@@ -72,17 +74,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'advocacia.wsgi.application'
-
-
+ROOT_URLCONF = 'advocacia.urls'
+LOGOUT_REDIRECT_URL = '/login'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': config('DB_NAME', default=str(BASE_DIR / 'db.sqlite3')),  # Usando variável de ambiente
     }
 }
+
+
 
 AUTH_USER_MODEL = 'task.Usuario'
 

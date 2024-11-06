@@ -1,1 +1,31 @@
-venv
+# Ambiente virtual
+venv/
+env/
+
+# Arquivos de banco de dados
+*.db
+*.sqlite3
+
+# Arquivos de configuração sensíveis
+*.env
+*.json
+*.yml
+
+# Arquivos de log
+*.log
+
+# Arquivos temporários
+*.bak
+*.swp
+*.swo
+
+# Arquivos compilados Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Migrações Django
+*/migrations/*.py
+
+# Arquivos de cache do Django
+*.pyc
