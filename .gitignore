@@ -1,10 +1,11 @@
 # Ambiente virtual
 venv/
 env/
+db.sqlite3
+
 
 # Arquivos de banco de dados
-*.db
-*.db.sqlite3
+
 
 # Arquivos de configuração sensíveis
 *.env
