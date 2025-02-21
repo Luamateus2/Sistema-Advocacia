@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from ..models import Cliente, Processo
 
 
 def adicionar_processo(request):

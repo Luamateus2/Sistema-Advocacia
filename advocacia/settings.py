@@ -77,6 +77,7 @@ ROOT_URLCONF = 'advocacia.urls'
 LOGOUT_REDIRECT_URL = '/login'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+AUTH_USER_MODEL = 'task.User'
 
 
 DATABASES = {
@@ -88,7 +89,6 @@ DATABASES = {
 
 
 
-AUTH_USER_MODEL = 'task.Usuario'
 
 
 # Password validation

@@ -3,7 +3,6 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from ..models import Usuario
 
 
 def autenticar_usuario(request):

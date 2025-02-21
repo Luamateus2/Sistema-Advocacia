@@ -1,12 +1,21 @@
 from django.urls import path
-from .views import login_views, processo_views, tarefa_views, cliente_views,cadastar_views
+from .views import processo_views, tarefa_views, cliente_views,cadastar_views,user_views,client_views
 from django.contrib.auth import views as auth_views
 urlpatterns = [
-    path('',view = login_views.autenticar_usuario,name='autenticar_usuario'),
+    path('',view = user_views.authenticate_user,name='login'),
+
+
     
-    path('adicionar/usuario',cadastar_views.adicionar_usuario, name='adicionar_usuario'),
+    path('adicionar/usuario',user_views.add_user, name='adicionar_usuario'),
     
-    path('adicionar/cliente',view=cliente_views.adicionar_cliente,name='adicionar_cliente'),
+
+
+
+
+    path('adicionar/cliente',view=client_views.add_client,name='adicionar_cliente'),
+
+
+
     path('editar_cliente/<int:cliente_id>/',view=cliente_views.editar_cliente, name='editar_cliente'),
     path('excluir/cliente/<int:cliente_id>/',view=cliente_views.excluir_cliente, name='excluir_cliente'),
 

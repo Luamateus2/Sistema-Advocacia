@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.utils.dateparse import parse_date
-from ..models import Tarefa, Processo
 
 
 def tarefa(request):

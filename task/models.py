@@ -5,105 +5,105 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
-class UsuarioManager(BaseUserManager):
-    def create_user(self, email, nome, password=None):
+class UserManager(BaseUserManager):
+    def create_user(self, email, name, password=None):
         if not email:
-            raise ValueError('O campo email é obrigatório')
-        if not nome:
-            raise ValueError('O campo nome é obrigatório')
+            raise ValueError('The email field is required')
+        if not name:
+            raise ValueError('The name field is required')
 
         email = self.normalize_email(email)
-        user = self.model(email=email, nome=nome)
+        user = self.model(email=email, name=name)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, nome, password=None):
-        user = self.create_user(email, nome, password)
+    def create_superuser(self, email, name, password=None):
+        user = self.create_user(email, name, password)
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
         return user
 
 
-class Usuario(AbstractBaseUser, PermissionsMixin):
-    nome = models.CharField(max_length=50, blank=False)
+class User(AbstractBaseUser, PermissionsMixin):
+    name = models.CharField(max_length=50, blank=False)
     email = models.EmailField(max_length=100, unique=True, blank=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
 
-    groups = models.ManyToManyField(Group, related_name='usuario_groups')
+    groups = models.ManyToManyField(Group, related_name='user_groups')
     user_permissions = models.ManyToManyField(
-        Permission, related_name='usuario_user_permissions')
+        Permission, related_name='user_user_permissions')
 
-    objects = UsuarioManager()
+    objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['nome']
+    REQUIRED_FIELDS = ['name']
 
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
 
     def __str__(self):
-        return self.nome
+        return self.name
 
 
-class Cliente(models.Model):
-    nome = models.CharField(max_length=50, blank=False,null=False)
-    cpf = models.CharField(max_length=14, unique=True, blank=False,null=False, db_index=True)  # Adicionando o db_index
-    rg = models.CharField(max_length=9, unique=True, blank=False,null=False)
-    data_nascimento = models.DateField()
-    contato = models.CharField(max_length=14, blank=False,null=False)
+class Client(models.Model):
+    name = models.CharField(max_length=50, blank=False, null=False)
+    cpf = models.CharField(max_length=14, unique=True, blank=False, null=False, db_index=True)
+    rg = models.CharField(max_length=9, unique=True, blank=False, null=False)
+    birth_date = models.DateField()
+    contact = models.CharField(max_length=14, blank=False, null=False)
     email = models.EmailField(max_length=100, unique=True)
-    genero = models.CharField(max_length=50, blank=False,  null=False)
+    gender = models.CharField(max_length=50, blank=False, null=False)
     whatsapp = models.CharField(max_length=50)
-    cep = models.CharField(max_length=12, blank=False, null=False)
-    logradouro = models.CharField(max_length=50, blank=False, null=False)
-    numero_casa = models.IntegerField()
-    bairro = models.CharField(max_length=50, blank=False, null=False)
-    pis = models.CharField(max_length=20,unique=True)
-    serie = models.CharField(max_length=20)
-    uf = models.CharField(max_length=2,blank=False,null=False)
-    numeracao_ctps = models.CharField(max_length=10)
-    
+    postal_code = models.CharField(max_length=12, blank=False, null=False)
+    street = models.CharField(max_length=50, blank=False, null=False)
+    house_number = models.IntegerField()
+    neighborhood = models.CharField(max_length=50, blank=False, null=False)
+    pis = models.CharField(max_length=20, unique=True)
+    series = models.CharField(max_length=20)
+    state = models.CharField(max_length=2, blank=False, null=False)
+    ctps_number = models.CharField(max_length=10)
+
     def __str__(self):
-        return self.nome 
+        return self.name
+
     def clean(self):
         if not validate_email(self.email):
             raise ValidationError(
-                {'email': 'O endereço de e-mail fornecido não é válido.'})
+                {'email': 'The provided email address is not valid.'})
 
-      
-        if self.data_nascimento > timezone.now().date():
+        if self.birth_date > timezone.now().date():
             raise ValidationError(
-                {'data_nascimento': 'A data de nascimento não pode estar no futuro.'})
+                {'birth_date': 'The birth date cannot be in the future.'})
 
 
-class Processo(models.Model):
-    numero_processo = models.CharField(
+class Case(models.Model):
+    case_number = models.CharField(
         max_length=100, unique=True, blank=False, null=False)
-    autor = models.ForeignKey(Cliente, on_delete=models.CASCADE, to_field='cpf', db_column='cpf_autor')
-    reu = models.CharField(max_length=100, blank=False, null=False)
-    instancia = models.CharField(max_length=100, blank=False, null=False)
+    plaintiff = models.ForeignKey(Client, on_delete=models.PROTECT, to_field='cpf', db_column='cpf_plaintiff')
+    defendant = models.CharField(max_length=100, blank=False, null=False)
+    instance = models.CharField(max_length=100, blank=False, null=False)
     forum = models.CharField(max_length=100, blank=False, null=False)
-    valor_da_causa = models.CharField(
+    claim_value = models.CharField(
         max_length=10, blank=False, null=False)
-    assunto = models.CharField(max_length=500, blank=False, null=False)
+    subject = models.CharField(max_length=500, blank=False, null=False)
 
     def __str__(self):
-        return self.numero_processo
+        return self.case_number
 
-    
-class Tarefa(models.Model):
-     titulo_tarefa = models.CharField(max_length=100,unique=True, blank=False, null=False)
-     data_base = models.DateField(auto_now_add=True)
-     data_fatal = models.DateField()
-     data_inicial = models.DateField()
-     situacao = models.CharField(max_length=100, blank=False, null=False)
-     responsavel = models.CharField(max_length=100,unique=True, blank=False, null=False)
-     processo = models.ForeignKey(Processo, on_delete=models.CASCADE,to_field='numero_processo',db_column='numero_p')
-     def __str__(self):
-        return self.titulo_tarefa
-    
+
+class Task(models.Model):
+    task_title = models.CharField(max_length=100, unique=True, blank=False, null=False)
+    base_date = models.DateField(auto_now_add=True)
+    deadline = models.DateField()
+    start_date = models.DateField()
+    status = models.CharField(max_length=100, blank=False, null=False)
+    responsible = models.CharField(max_length=100, unique=True, blank=False, null=False)
+    case = models.ForeignKey(Case, on_delete=models.PROTECT, to_field='case_number', db_column='case_number')
+
+    def __str__(self):
+        return self.task_title

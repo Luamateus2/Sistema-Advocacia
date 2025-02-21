@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="{% static 'css/styleautenticar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
     <div class="page">
-        <form method="POST" class="formLogin" action="{% url 'autenticar_usuario' %}">
+        <form method="POST" class="formLogin" action="{% url 'login' %}">
             {% csrf_token %}
             <h1>Login</h1>
             <p>Digite os seus dados de acesso no campo abaixo.</p>
@@ -20,7 +20,7 @@
             <label for="password">Senha*</label>
             <input type="password" name="password" placeholder="Digite sua senha"/>
             
-            <a href='{% url "adicionar_usuario" %}'>Cadastrar</a>
+            <a href='#'>Cadastrar</a>
             <input type="submit" value="Acessar" class="btn" />
                 <p>*Campos Obrigatórios </p>
 
