@@ -1,24 +1,86 @@
-"# AdvocaciaT" 
+# Sistema de Gestão para Escritório de Advocacia Previdenciária
 
-Descrição
+## Descrição
+Este projeto foi desenvolvido como parte da conclusão de uma disciplina do curso de Sistemas de Informação e tem como objetivo simular o funcionamento de um sistema de gestão de clientes e processos para um escritório de advocacia previdenciária. 
 
-Este projeto foi desenvolvido como parte da conclusão de uma disciplina da faculdade de sistemas de Informação e tem como objetivo simular o funcionamento de um sistema de gestão de clientes e processos para um escritório de advocacia previdenciária. O sistema permite o cadastro de clientes, a simulação do cadastro de processos jurídicos relacionados à previdência, a listagem de clientes e a alteração de seus dados.
+O sistema permite:
+- O cadastro de clientes
+- A simulação do cadastro de processos jurídicos relacionados à previdência
+- A listagem de clientes
+- A alteração de seus dados
 
-Funcionalidades:
-
+## Funcionalidades
 O sistema oferece as seguintes funcionalidades:
 
-    Cadastro de Clientes: Inserção de informações pessoais de clientes como nome, CPF, e dados relacionados à previdência.
-    Listagem de Clientes: Exibição de todos os clientes cadastrados no sistema.
-    Alteração de Dados: Permite a edição das informações dos clientes existentes.
-    Simulação de Cadastro de Processos: Simulação do cadastro de processos jurídicos vinculados a clientes.
+- **Cadastro de Clientes**: Inserção de informações pessoais de clientes como nome, CPF e dados relacionados à previdência.
+- **Listagem de Clientes**: Exibição de todos os clientes cadastrados no sistema.
+- **Alteração de Dados**: Permite a edição das informações dos clientes existentes.
+- **Simulação de Cadastro de Processos**: Simulação do cadastro de processos jurídicos vinculados a clientes.
+- **Controle de Acesso**: Apenas as páginas de cadastro e login possuem acesso livre, garantindo maior segurança ao sistema.
 
-Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
-    Back-end:
-        Django (Python)
-    Banco de Dados:
-        SQLite (ambiente de desenvolvimento)
-    Front-end:
-        HTML5, CSS3 e Django
-Os acessos as pages do sistema são protegidos só as pages de cadastro e login tem acesso livres.
+### Back-end:
+- Django (Python)
+
+### Banco de Dados:
+- SQLite (ambiente de desenvolvimento)
+
+### Front-end:
+- HTML5
+- CSS3
+- Django
+- Bootstrap 5
+
+## Estrutura do Projeto
+```
+/
+|-- templates/                # Templates HTML do projeto
+|-- advocacia/   # Diretório raiz do projeto Django
+|-- task/            # Aplicativo responsável pela gestão de tarefas/processos
+|-- requirements.txt          # Arquivo com as dependências do projeto
+```
+
+## Como Executar o Projeto
+### 1. Clonar o Repositório
+```sh
+git clone <URL_DO_REPOSITORIO>
+cd startproject-advocacia
+```
+
+### 2. Criar e Ativar o Ambiente Virtual
+```sh
+python -m venv venv
+source venv/bin/activate  # No Windows, use: venv\Scripts\activate
+```
+
+### 3. Instalar as Dependências
+```sh
+pip install -r requirements.txt
+```
+
+### 4. Aplicar as Migrações do Banco de Dados
+```sh
+python manage.py migrate
+```
+
+### 5. Criar um Superusuário (Opcional, para acesso ao admin)
+```sh
+python manage.py createsuperuser
+```
+
+### 6. Executar o Servidor
+```sh
+python manage.py runserver
+```
+
+Acesse o sistema no navegador pelo endereço: `http://127.0.0.1:8000/`
+
+## Licença
+Este projeto foi desenvolvido para fins acadêmicos e não possui fins comerciais.
+
+---
+
+**Autor:** Luana Karoline
+**Contato:** luanakarolineliramateus2021@gmail.com
+
