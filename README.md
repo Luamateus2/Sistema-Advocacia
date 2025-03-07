@@ -44,8 +44,8 @@ O sistema oferece as seguintes funcionalidades:
 ## Como Executar o Projeto
 ### 1. Clonar o Repositório
 ```sh
-git clone <URL_DO_REPOSITORIO>
-cd startproject-advocacia
+git clone https://github.com/Luamateus2/Sistema-Advocacia.git
+cd sistema-advocacia
 ```
 
 ### 2. Criar e Ativar o Ambiente Virtual
